@@ -12,15 +12,15 @@ class Life:
         self._x =47 # Кількість кнопок по x.
         self._y =31 # Кількість кнопок по y.
 
-    def __cycle(self,s):
+    def __pressing_on_green_button(self,s):
         global click
         click+=1
         text_2["text"]=f"Зелену кнопку було нажато: {click}"
         if s<=15 and s>0:
             for i in range(1,s+1):
-                self.__pressing_on_green_button()
+                self.__change_color_buttons()
         else:
-            self.__pressing_on_green_button()
+            self.__change_color_buttons()
 
     def __tt(self):
         for a2_indexs in range(len(a2)):
@@ -56,7 +56,7 @@ class Life:
                 else:
                     kk_2[a2_indexs][indexs]=0
 
-    def __pressing_on_green_button(self):
+    def __change_color_buttons(self):
         s=[]
         global number_of_squares
         number_of_squares=0
@@ -145,7 +145,7 @@ class Life:
             list_of_int=[] # Очищення списка.
             buttons=[]
             kk_1=[]
-        Button(window, text="start", width=3, height=1, bg="#00aa00", command=lambda :self.__cycle(s)).place(x=20, y=811) # Створення зелиної копки з парамитрами.
+        Button(window, text="start", width=3, height=1, bg="#00aa00", command=lambda :self.__pressing_on_green_button(s)).place(x=20, y=811) # Створення зелиної копки з парамитрами.
         Button(window, text="to cleanse", width=7, height=1, bg="#aa0000", command=self.__to_cleanse).place(x=300, y=811) # Створення червоної копки з парамитрами.
         text=Label(text=f"Чорних квадратів: {number_of_squares}",fg="#dd8c5a" ,bg="#833200", font=1) # Створення текста з парамитрами.
         text.place(x=388,y=811) # Розміщення текса на вікні.
