@@ -2,7 +2,7 @@ from tkinter import Tk, Button, Label
 a2=[]
 but_2=[]
 kk_2=[]
-s=1 # 
+s=1
 number_of_squares=0
 
 class Life:
@@ -84,7 +84,7 @@ class Life:
         if button["bg"]=="#c8c8c8": # Якщо кнопка буде сірого кольору.
             global number_of_squares
             number_of_squares+=1 # Збільшення кількості квадратів.
-            text["text"]=f"Чорних квадратів: {number_of_squares}" # 
+            text["text"]=f"Чорних квадратів: {number_of_squares}"
             button["bg"]="#000000" # Зміна кольору кнопки.
             button["activeforeground"]="#c8c8c8"
             button["activebackground"]="#000000"
@@ -111,7 +111,7 @@ class Life:
                 but_2[indexs_1][indexs_2]["activebackground"]="#c8c8c8"
                 but_2[indexs_1][indexs_2]["text"]="0" # Зміна тексту кнопки.
                 but_2[indexs_1][indexs_2]["fg"]="#000000" # Зміна кольору тексту кнопки.
-                a2[indexs_1][indexs_2]=0 
+                a2[indexs_1][indexs_2]=0
                 kk_2[indexs_1][indexs_2]=0
 
     def start_window(self): # Створення вікна з парамитрами.
@@ -121,7 +121,7 @@ class Life:
         window.config(bg="#833200")
 
     def creation_of_buttons(self):
-        global text # 
+        global text
         window.geometry("799x844") # Розміри вікна.
         window.resizable(False,False) # Заборона на зміну розміра вікна.
         kk_1=[] # Пустий список.
