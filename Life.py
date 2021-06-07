@@ -1,20 +1,20 @@
-from tkinter import Tk, Button, Label
+from tkinter import Tk, Button, Label # Модуль для створення графічног інтерфейса.
 a2=[]
 but_2=[]
 kk_2=[]
 s=1
 click=0
-number_of_squares=0 # Кількість квадратів.
+number_of_squares=0
 
 class Life:
 
-    def __init__(self):
+    def __init__(self): 
         self._x =47 # Кількість кнопок по x.
         self._y =31 # Кількість кнопок по y.
 
     def __pressing_on_green_button(self,s):
         global click
-        click+=1
+        click+=1 # Збільшення зміної click на 1.
         text_2["text"]=f"Зелену кнопку було нажато: {click}"
         if s<=15 and s>0:
             for i in range(1,s+1):
