@@ -117,8 +117,7 @@ class Life:
     def start_window(self): # Створення вікна з парамитрами.
         global window
         window=Tk() # Створення об'єкта вікно.
-        window.title("Life") # 
-        window.iconbitmap("images.ico") # Добавлення ярлика.
+        window.title("Life")
         window.config(bg="#833200")
 
     def creation_of_buttons(self):
