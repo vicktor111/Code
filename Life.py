@@ -3,7 +3,7 @@ a2=[]
 but_2=[]
 kk_2=[]
 s=1
-number_of_squares=0
+number_of_squares=0 # Кількість квадратів.
 
 class Life:
 
