@@ -3,6 +3,7 @@ a2=[]
 but_2=[]
 kk_2=[]
 s=1
+click=0
 number_of_squares=0 # Кількість квадратів.
 
 class Life:
@@ -12,6 +13,9 @@ class Life:
         self._y =31 # Кількість кнопок по y.
 
     def __cycle(self,s):
+        global click
+        click+=1
+        text_2["text"]=f"Зелену кнопку було нажато: {click}"
         if s<=15 and s>0:
             for i in range(1,s+1):
                 self.__pressing_on_green_button()
@@ -121,7 +125,7 @@ class Life:
         window.config(bg="#833200")
 
     def creation_of_buttons(self):
-        global text
+        global text, text_2
         window.geometry("799x844") # Розміри вікна.
         window.resizable(False,False) # Заборона на зміну розміра вікна.
         kk_1=[] # Пустий список.
@@ -142,9 +146,11 @@ class Life:
             buttons=[]
             kk_1=[]
         Button(window, text="start", width=3, height=1, bg="#00aa00", command=lambda :self.__cycle(s)).place(x=20, y=811) # Створення зелиної копки з парамитрами.
-        Button(window, text="to cleanse", width=7, height=1, bg="#aa0000", command=self.__to_cleanse).place(x=200, y=811) # Створення червоної копки з парамитрами.
+        Button(window, text="to cleanse", width=7, height=1, bg="#aa0000", command=self.__to_cleanse).place(x=300, y=811) # Створення червоної копки з парамитрами.
         text=Label(text=f"Чорних квадратів: {number_of_squares}",fg="#dd8c5a" ,bg="#833200", font=1) # Створення текста з парамитрами.
-        text.place(x=300,y=811) # Розміщення текса на вікні.
+        text.place(x=388,y=811) # Розміщення текса на вікні.
+        text_2=Label(window, text=f"Зелену кнопку було нажато: {click}", bg="#833200", fg="#dd8c5a", font=15)
+        text_2.place(x=60,y=811)
         window.mainloop() # Метод який недає закретись просто так вікну.
 
 game=Life()
