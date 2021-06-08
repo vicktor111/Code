@@ -1,4 +1,5 @@
 from tkinter import *
+from modules import *
 def fun(event):
     try:
         a=[int(i) for i in text.get("1.0", END).split(",")]
