@@ -29,6 +29,11 @@ def interpreter(file: name_file)->print:
             i=i[10:len(i)+1]
             c=[i for i in i.split(",")]
             window.geometry(f"{c[0]}x{c[0][0:len(c[1])]}")
+        if i[0:6]=="title:":
+            i=i[7:len(i)+1]
+            c=[i for i in i.split(",")]
+            window.title(f"{c[0][0:len(c[0])-1]}")
+
         if i[0:len(l)+1]=="end;": #2
             window.mainloop()
         if i[0:len(l)+1]=="button;": #3
