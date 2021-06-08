@@ -1,3 +1,21 @@
+"""
+Код для створення графічного вікна.
+start - команда для створення вікна.
+button - команда для створення кнопки на вікні.
+bg - зніна кольору віджитів.
+wid - зніна шерини віджита.
+heig - зніна висоти віджита.
+text - добавлення тексту.
+
+Готове графічне вікно.
+start;
+geometry: 100,100;
+button{
+  bg: red
+  place: 50,50
+}
+end;
+"""
 from tkinter import Tk, Button, Label, Entry
 class name_file: ...
 
@@ -5,10 +23,10 @@ def interpreter(file: name_file)->print:
     l=[a for a in file.split("\n")]
     print(l)
     for i in l:
-        if i[0:len(l)+1]=="start;": # 1
+        if i[0:len(l)+1]=="start;": #1
             window=Tk()
-        if i[0:3]=="xy:":
-            i=i[4:len(i)+1]
+        if i[0:9]=="geometry:":
+            i=i[10:len(i)+1]
             c=[i for i in i.split(",")]
             window.geometry(f"{c[0]}x{c[0][0:len(c[1])]}")
         if i[0:len(l)+1]=="end;": #2
