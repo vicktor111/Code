@@ -4,21 +4,17 @@ class Print: ...
 
 def interpreter(file: name_file)->Print:
 
-    def atribute_bg(wiget,value,index):
-        if value==1:
-            wiget.config(bg=f"{i[index:len(i)+1]}")
+    def atribute_bg(wiget,index):
+            wiget.config(bg=f"{code[index:len(code)+1]}")
     
-    def atribute_width(wiget,value,index):
-        if value==1:
-            wiget.config(width=f"{i[index:len(i)+1]}")
+    def atribute_width(wiget,index):
+            wiget.config(width=f"{code[index:len(code)+1]}")
 
-    def atribute_height(wiget,value,index):
-        if value==1:
-            wiget.config(height=f"{i[index:len(i)+1]}")
+    def atribute_height(wiget,index):
+            wiget.config(height=f"{code[index:len(code)+1]}")
 
-    def atribute_text(wiget,value,index):
-        if value==1:
-            wiget.config(text=f"{i[index:len(i)+1]}")
+    def atribute_text(wiget,index):
+            wiget.config(text=f"{code[index:len(code)+1]}")
 
     def locage(wiget,value):
         if value==1:
@@ -67,26 +63,34 @@ def interpreter(file: name_file)->Print:
             label_1=1
 
         elif code[0:5]=="  bg:" and f==1: #5.
-            atribute_bg(button,button_1,6)
-            atribute_bg(label,label_1,6)
+            if button_1==1:
+                atribute_bg(button,6)
+            if label_1==1:
+                atribute_bg(label,6)
             f=1
 
         elif code[0:6]=="  wid:" and f==1: #6.
-            atribute_width(button,button_1,7)
-            atribute_width(label,label_1,7)
+            if button_1==1:
+                atribute_width(button,7)
+            if label_1==1:
+                atribute_width(label,7)
 
         elif code[0:7]=="  heig:" and f==1: #7.
-            atribute_height(button,button_1,8)
-            atribute_height(button,button_1,8)
+            if button_1==1:
+                atribute_height(button,8)
+            if label_1==1:
+                atribute_height(label,8)
             f=1
 
         elif code[0:7]=="  text:" and f==1: #8.
-            atribute_text(button,button_1,8)
-            atribute_text(label,label_1,8)
+            if button_1==1:
+                atribute_text(button,8)
+            if label_1==1:
+                atribute_text(label,8)
             f=1
 
         elif code[0:8]=="  place:" and f==1: #9.
-            i=code[9:len(i)+1]
+            i=code[9:len(code)+1]
             parameters=[i for i in i.split(",")]
             x=int(parameters[0])
             y=int(parameters[1])
