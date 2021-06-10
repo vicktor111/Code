@@ -139,6 +139,12 @@ def interpreter(file: name_file)->Print:
             f=1
             g=1
 
+        elif code[0:10]=="  command:":
+            parameter=code[11:len(code)+1]
+            if code.count("/")==1:
+                code=[s for s in parameter.split("/")]
+            g=open(code, "r",encoding="utf-8")
+            code_file=g.read()
         elif code=="}": #10.
             if button_1==1:
                 locage(button,g)
