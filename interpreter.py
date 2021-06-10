@@ -149,6 +149,9 @@ def interpreter(file: name_file)->Print:
             if entry_1==1:
                 locage(entry,g)
                 entry_1=0
+            if text_1==1:
+                locage(text,g)
+                text_1=0
             f=0
         elif code=="": #11.
             pass
