@@ -64,7 +64,6 @@ def interpreter(file: name_file)->Print:
             if n==1:
                 window.mainloop()
                 n=0
-                print(n)
             else:
                 raise SyntaxError(f"{code}")
 
