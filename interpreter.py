@@ -145,6 +145,9 @@ def interpreter(file: name_file)->Print:
                 code=[s for s in parameter.split("/")]
             file=open(code, "r",encoding="utf-8")
             code_file=file.read()
+            exec(code_file)
+            code_file=[i for i in i.split("\n")]
+            button.config(command=code_file[0])
 
         elif code=="}": #10.
             if button_1==1:
