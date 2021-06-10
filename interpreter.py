@@ -5,29 +5,29 @@ class Print: ...
 def interpreter(file: name_file)->Print:
 
     def atribute_bg(wiget,index,code):
-        if code.count("#")==1:
-            code=[s for s in code.split("#")]
+        if code.count("/")==1:
+            code=[s for s in code.split("/")]
             wiget.config(bg=f"{code[0][index:len(code[0])-1]}")
         else:
             wiget.config(bg=f"{code[index:len(code)]}")
     
     def atribute_width(wiget,index,code):
-        if code.count("#")==1: 
-            code=[s for s in code.split("#")]
+        if code.count("/")==1: 
+            code=[s for s in code.split("/")]
             wiget.config(width=f"{code[0][index:len(code[0])-1]}")
         else:
             wiget.config(width=f"{code[index:len(code)]}")
 
     def atribute_height(wiget,index,code):
-        if code.count("#")==1:
-            code=[s for s in code.split("#")]
+        if code.count("/")==1:
+            code=[s for s in code.split("/")]
             wiget.config(height=f"{code[0][index:len(code[0])-1]}")
         else:
             wiget.config(height=f"{code[index:len(code)]}")
 
     def atribute_text(wiget,index,code):
-        if code.count("#")==1:
-            code=[s for s in code.split("#")]
+        if code.count("/")==1:
+            code=[s for s in code.split("/")]
             wiget.config(text=f"{code[0][index:len(code[0])-1]}")
         else:
             wiget.config(text=f"{code[index:len(code)]}")
