@@ -12,7 +12,7 @@ def interpreter(file: name_file)->Print:
             wiget.config(bg=f"{code[index:len(code)]}")
     
     def atribute_width(wiget,index,code):
-        if code.count("#")==1:
+        if code.count("#")==1: 
             code=[s for s in code.split("#")]
             wiget.config(width=f"{code[0][index:len(code[0])-1]}")
         else:
