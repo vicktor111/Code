@@ -193,7 +193,7 @@ def interpreter(file: name_file)->Print:
             raise SyntaxError(f"{code}")
 
 if __name__=="__main__":
-    filename=input("")
+    filename=input("Вкажіть файл ")
     file=open(filename,"r",encoding="utf-8")
     file=file.read()
     interpreter(file)
