@@ -139,6 +139,22 @@ def interpreter(file: name_file)->Print:
             f=1
             g=1
 
+        elif code[0:10]=="  command:":
+            if button_1==1:
+                parameter=code[11:len(code)+1]
+                if code.count("/")==1:
+                    code=[s for s in parameter.split("/")]
+                    file=open(code, "r",encoding="utf-8")
+                file=open(parameter, "r",encoding="utf-8")
+                code_file=file.read()
+                exec(code_file)
+                code_file=[i for i in code_file.split("\n")]
+                exec(f"button.config(command={code_file[0][1:]})")
+                
+            else:
+                raise SyntaxError(f"{code}")
+            f=1
+
         elif code=="}": #10.
             if button_1==1:
                 locage(button,g)
