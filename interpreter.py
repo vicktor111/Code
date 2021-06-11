@@ -44,21 +44,40 @@ def interpreter(file: name_file)->Print:
     button_1=0
     entry_1=0
     text_1=0
-    # f=0
-    # g=0
-    # n=0
+
     for code in list_with_code:
-        if code[0:6]=="start;": #1.
+        
+        if code[0:len(code)]=="start;": #1.
             window=Tk()
             n=1
-        elif code[0:9]=="geometry:":
-            i=code[10:len(code)+1]
-            parameters=[i for i in i.split(",")]
+
+        elif code[0:9]=="geometry:" and n==1:
+            code=code[10:len(code)+1]
+            if code.count("/")==1:
+                code=[i for i in code.split("/")]
+                parameters=[i for i in code[0].split(",")]
+            else:
+                parameters=[i for i in code.split(",")]
             window.geometry(f"{parameters[0]}x{parameters[0][0:len(parameters[1])]}")
-        elif code[0:6]=="title:":
-            i=code[7:len(code)+1]
-            parameter=[i for i in i.split(",")]
-            window.title(f"{parameter[0][0:len(parameter[0])-1]}")
+
+        elif code[0:7]=="script:" and n==1:
+            code=code[8:len(code)+1]
+            if code.count("/")==1:
+                code=[i for i in code.split("/")]
+                file=open(code[0][0:len(code[0])-2],'r',encoding='utf8')
+                code_file=file.read()
+                exec(code_file)
+            else:
+                file=open(code[0:len(code)-1],'r',encoding='utf8')
+                code_file=file.read()
+                exec(code_file)
+
+        elif code[0:6]=="title:" and n==1:
+            code=code[7:len(code)+1]
+            if code.count("/")==1:
+                code=[i for i in code.split("/")]
+                window.title(f"{str(code[0])[0:len(code[0])-2]}")
+            window.title(f"{code[0:len(code)-1]}")
 
         elif code[0:4]=="end;": #2.
             if n==1:
@@ -67,25 +86,25 @@ def interpreter(file: name_file)->Print:
             else:
                 raise SyntaxError(f"{code}")
 
-        elif code[0:7]=="Button{": #3.
+        elif code[0:len(code)+1]=="Button{" and n==1: #3.
             button=Button(window)
             g=0
             f=1
             button_1=1
 
-        elif code[0:6]=="Label{": #4.
+        elif code[0:len(code)+1]=="Label{" and n==1: #4.
             label=Label(window)
             g=0
             f=1
             label_1=1
 
-        elif code[0:6]=="Entry{": #4.
+        elif code[0:len(code)+1]=="Entry{" and n==1: #4.
             entry=Entry(window)
             g=0
             f=1
             entry_1=1
 
-        elif code[0:5]=="Text{": #4.
+        elif code[0:len(code)+1]=="Text{" and n==1: #4.
             text=Text(window)
             g=0
             f=1
@@ -102,26 +121,26 @@ def interpreter(file: name_file)->Print:
                 atribute_bg(text,6,code)
             f=1
 
-        elif code[0:6]=="  wid:" and f==1: #6.
+        elif code[0:8]=="  width:" and f==1: #6.
             if button_1==1:
-                atribute_width(button,7,code)
+                atribute_width(button,9,code)
             if label_1==1:
-                atribute_width(label,7,code)
+                atribute_width(label,9,code)
             if entry_1==1:
-                atribute_width(entry,7,code)
+                atribute_width(entry,9,code)
             if text_1==1:
-                atribute_width(text,7,code)
+                atribute_width(text,9,code)
             f=1
 
-        elif code[0:7]=="  heig:" and f==1: #7.
+        elif code[0:9]=="  height:" and f==1: #7.
             if button_1==1:
-                atribute_height(button,8,code)
+                atribute_height(button,10,code)
             if label_1==1:
-                atribute_height(label,8,code)
+                atribute_height(label,10,code)
             if entry_1==1:
-                atribute_height(entry,8,code)
+                atribute_height(entry,10,code)
             if text_1==1:
-                atribute_height(text,8,code)
+                atribute_height(text,10,code)
             f=1
 
         elif code[0:7]=="  text:" and f==1: #8.
@@ -143,14 +162,10 @@ def interpreter(file: name_file)->Print:
             if button_1==1:
                 parameter=code[11:len(code)+1]
                 if code.count("/")==1:
-                    code=[s for s in parameter.split("/")]
-                    file=open(code, "r",encoding="utf-8")
-                file=open(parameter, "r",encoding="utf-8")
-                code_file=file.read()
-                exec(code_file)
-                code_file=[i for i in code_file.split("\n")]
-                exec(f"button.config(command={code_file[0][1:]})")
-                
+                    parameter=[s for s in parameter.split("/")]
+                    button.config(command=f"{parameter[0]}")
+                else:
+                    exec(f"button.config(command={parameter})")
             else:
                 raise SyntaxError(f"{code}")
             f=1
@@ -171,13 +186,13 @@ def interpreter(file: name_file)->Print:
             f=0
         elif code=="": #11.
             pass
-        elif code[0]=="#": #12.
+        elif code[0]=="/": #12.
             pass
         else:
             raise SyntaxError(f"{code}")
 
 if __name__=="__main__":
-    filename=input("")
+    filename=input("Вкажіть файл ")
     file=open(filename,"r",encoding="utf-8")
     file=file.read()
     interpreter(file)
