@@ -44,15 +44,14 @@ def interpreter(file: name_file)->Print:
     button_1=0
     entry_1=0
     text_1=0
-    # f=0
-    # g=0
-    # n=0
+
     for code in list_with_code:
-        if code[0:6]=="start;": #1.
+        
+        if code[0:len(code)]=="start;": #1.
             window=Tk()
             n=1
 
-        elif code[0:9]=="geometry:":
+        elif code[0:9]=="geometry:" and n==1:
             code=code[10:len(code)+1]
             if code.count("/")==1:
                 code=[i for i in code.split("/")]
@@ -61,7 +60,7 @@ def interpreter(file: name_file)->Print:
                 parameters=[i for i in code.split(",")]
             window.geometry(f"{parameters[0]}x{parameters[0][0:len(parameters[1])]}")
 
-        elif code[0:7]=="script:":
+        elif code[0:7]=="script:" and n==1:
             code=code[8:len(code)+1]
             if code.count("/")==1:
                 code=[i for i in code.split("/")]
@@ -73,7 +72,7 @@ def interpreter(file: name_file)->Print:
                 code_file=file.read()
                 exec(code_file)
 
-        elif code[0:6]=="title:":
+        elif code[0:6]=="title:" and n==1:
             code=code[7:len(code)+1]
             if code.count("/")==1:
                 code=[i for i in code.split("/")]
@@ -87,25 +86,25 @@ def interpreter(file: name_file)->Print:
             else:
                 raise SyntaxError(f"{code}")
 
-        elif code[0:7]=="Button{": #3.
+        elif code[0:len(code)+1]=="Button{" and n==1: #3.
             button=Button(window)
             g=0
             f=1
             button_1=1
 
-        elif code[0:6]=="Label{": #4.
+        elif code[0:len(code)+1]=="Label{" and n==1: #4.
             label=Label(window)
             g=0
             f=1
             label_1=1
 
-        elif code[0:6]=="Entry{": #4.
+        elif code[0:len(code)+1]=="Entry{" and n==1: #4.
             entry=Entry(window)
             g=0
             f=1
             entry_1=1
 
-        elif code[0:5]=="Text{": #4.
+        elif code[0:len(code)+1]=="Text{" and n==1: #4.
             text=Text(window)
             g=0
             f=1
