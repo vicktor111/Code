@@ -186,7 +186,7 @@ def interpreter(file: name_file)->Print:
             f=0
         elif code=="": #11.
             pass
-        elif code[0]=="#": #12.
+        elif code[0]=="/": #12.
             pass
         else:
             raise SyntaxError(f"{code}")
