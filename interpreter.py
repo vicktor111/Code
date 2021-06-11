@@ -121,26 +121,26 @@ def interpreter(file: name_file)->Print:
                 atribute_bg(text,6,code)
             f=1
 
-        elif code[0:6]=="  wid:" and f==1: #6.
+        elif code[0:8]=="  width:" and f==1: #6.
             if button_1==1:
-                atribute_width(button,7,code)
+                atribute_width(button,9,code)
             if label_1==1:
-                atribute_width(label,7,code)
+                atribute_width(label,9,code)
             if entry_1==1:
-                atribute_width(entry,7,code)
+                atribute_width(entry,9,code)
             if text_1==1:
-                atribute_width(text,7,code)
+                atribute_width(text,9,code)
             f=1
 
-        elif code[0:7]=="  heig:" and f==1: #7.
+        elif code[0:9]=="  height:" and f==1: #7.
             if button_1==1:
-                atribute_height(button,8,code)
+                atribute_height(button,10,code)
             if label_1==1:
-                atribute_height(label,8,code)
+                atribute_height(label,10,code)
             if entry_1==1:
-                atribute_height(entry,8,code)
+                atribute_height(entry,10,code)
             if text_1==1:
-                atribute_height(text,8,code)
+                atribute_height(text,10,code)
             f=1
 
         elif code[0:7]=="  text:" and f==1: #8.
