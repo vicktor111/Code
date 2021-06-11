@@ -51,14 +51,34 @@ def interpreter(file: name_file)->Print:
         if code[0:6]=="start;": #1.
             window=Tk()
             n=1
+
         elif code[0:9]=="geometry:":
-            i=code[10:len(code)+1]
-            parameters=[i for i in i.split(",")]
+            code=code[10:len(code)+1]
+            if code.count("/")==1:
+                code=[i for i in code.split("/")]
+                parameters=[i for i in code[0].split(",")]
+            else:
+                parameters=[i for i in code.split(",")]
             window.geometry(f"{parameters[0]}x{parameters[0][0:len(parameters[1])]}")
+
+        elif code[0:7]=="script:":
+            code=code[8:len(code)+1]
+            if code.count("/")==1:
+                code=[i for i in code.split("/")]
+                file=open(code[0:len(code)-1],'r',encoding='utf8')
+                code_file=file.read()
+                exec(code_file)
+            else:
+                file=open(code[0:len(code)-1],'r',encoding='utf8')
+                code_file=file.read()
+                exec(code_file)
+
         elif code[0:6]=="title:":
-            i=code[7:len(code)+1]
-            parameter=[i for i in i.split(",")]
-            window.title(f"{parameter[0][0:len(parameter[0])-1]}")
+            code=code[7:len(code)+1]
+            if code.count("/")==1:
+                code=[i for i in code.split("/")]
+                window.title(f"{str(code[0])[0:len(code[0])-2]}")
+            window.title(f"{code[0:len(code)-1]}")
 
         elif code[0:4]=="end;": #2.
             if n==1:
@@ -143,14 +163,10 @@ def interpreter(file: name_file)->Print:
             if button_1==1:
                 parameter=code[11:len(code)+1]
                 if code.count("/")==1:
-                    code=[s for s in parameter.split("/")]
-                    file=open(code, "r",encoding="utf-8")
-                file=open(parameter, "r",encoding="utf-8")
-                code_file=file.read()
-                exec(code_file)
-                code_file=[i for i in code_file.split("\n")]
-                exec(f"button.config(command={code_file[0][1:]})")
-                
+                    parameter=[s for s in parameter.split("/")]
+                    button.config(command=f"{parameter[0]}")
+                else:
+                    exec(f"button.config(command={parameter})")
             else:
                 raise SyntaxError(f"{code}")
             f=1
