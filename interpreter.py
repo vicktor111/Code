@@ -65,7 +65,7 @@ def interpreter(file: name_file)->Print:
             code=code[8:len(code)+1]
             if code.count("/")==1:
                 code=[i for i in code.split("/")]
-                file=open(code[0:len(code)-1],'r',encoding='utf8')
+                file=open(code[0][0:len(code[0])-2],'r',encoding='utf8')
                 code_file=file.read()
                 exec(code_file)
             else:
