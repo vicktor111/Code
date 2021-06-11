@@ -1,7 +1,10 @@
 from tkinter import Tk, Button, Label, Entry, Text
 class name_file: ...
 class Print: ...
-
+button: None
+label: None
+entry: None
+text: None
 def interpreter(file: name_file)->Print:
 
     def atribute_bg(wiget,index,code):
