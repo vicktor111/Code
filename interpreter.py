@@ -49,6 +49,11 @@ def interpreter(file: name_file)->Print:
         
         if code[0:len(code)]=="start;": #1.
             window=Tk()
+            list_with_button=[]
+            list_with_label=[]
+            list_with_entry=[]
+            list_with_text=[]
+            file_1=open("value.py", "w",encoding="utf-8")
             n=1
 
         elif code[0:9]=="geometry:" and n==1: #2.
@@ -66,11 +71,9 @@ def interpreter(file: name_file)->Print:
                 code=[i for i in code.split("/")]
                 file=open(code[0][0:len(code[0])-2],'r',encoding='utf8')
                 code_file=file.read()
-                exec(code_file)
             else:
                 file=open(code[0:len(code)-1],'r',encoding='utf8')
                 code_file=file.read()
-                exec(code_file)
 
         elif code[0:6]=="title:" and n==1: #4.
             code=code[7:len(code)+1]
@@ -83,29 +86,34 @@ def interpreter(file: name_file)->Print:
             if n==1:
                 window.mainloop()
                 n=0
+                file_1.read(list_with_button,list_with_label,list_with_entry,list_with_text)
             else:
                 raise SyntaxError(f"{code}")
 
         elif code[0:len(code)+1]=="Button{" and n==1: #6.
             button=Button(window)
+            list_with_button.append(button)
             g=0
             f=1
             button_1=1
 
         elif code[0:len(code)+1]=="Label{" and n==1: #7.
             label=Label(window)
+            list_with_label.append(label)
             g=0
             f=1
             label_1=1
 
         elif code[0:len(code)+1]=="Entry{" and n==1: #8.
             entry=Entry(window)
+            list_with_entry.append(entry)
             g=0
             f=1
             entry_1=1
 
         elif code[0:len(code)+1]=="Text{" and n==1: #9.
             text=Text(window)
+            list_with_text.append(text)
             g=0
             f=1
             text_1=1
@@ -159,6 +167,7 @@ def interpreter(file: name_file)->Print:
             g=1
 
         elif code[0:10]=="  command:": #15.
+            exec(code_file)
             if button_1==1:
                 parameter=code[11:len(code)+1]
                 if code.count("/")==1:
