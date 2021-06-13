@@ -53,7 +53,6 @@ def interpreter(file: name_file)->Print:
             list_with_label=[]
             list_with_entry=[]
             list_with_text=[]
-            file_1=open("value.py", "w",encoding="utf-8")
             n=1
 
         elif code[0:9]=="geometry:" and n==1: #2.
@@ -86,7 +85,6 @@ def interpreter(file: name_file)->Print:
             if n==1:
                 window.mainloop()
                 n=0
-                file_1.read(list_with_button,list_with_label,list_with_entry,list_with_text)
             else:
                 raise SyntaxError(f"{code}")
 
