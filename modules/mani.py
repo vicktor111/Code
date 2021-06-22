@@ -213,12 +213,20 @@ def w(list):
     for i in range(len(list)):
         print(list[i])
 
-def copy_of_images(*filename: str):
+def copy_of_images(*filename: str, name: list[str]=...):
+    index=0
+    print(len(name))
     for file in filename:
-        with open(file,"rb") as file1:
+        with open(file, "rb") as file1:
             byte=file1.read()
-        with open(f"Copy-{file}","wb") as file2:
-            file2.write(byte)
+        if name==... or index>len(name)-1:
+            with open(f"Copy-{file}", "wb") as file2:
+                file2.write(byte)
+        else:
+            print(index)
+            with open(name[index], "wb") as file2:
+                file2.write(byte)
+        index+=1
 
 if __name__=='__main__':
     input("hello")
