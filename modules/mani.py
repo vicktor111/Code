@@ -213,5 +213,12 @@ def w(list):
     for i in range(len(list)):
         print(list[i])
 
+def copy_images(*filename: str):
+    for file in filename:
+        with open(file,"rb") as file1:
+            byte=file1.read()
+        with open(f"Copy-{file}","wb") as file2:
+            file2.write(byte)
+
 if __name__=='__main__':
     input("hello")
