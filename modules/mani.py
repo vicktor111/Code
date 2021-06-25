@@ -1,5 +1,6 @@
 from os import walk as __walk
 from random import randint
+from PIL import Image, ImageFilter, ImageChops
 try:
     from colorama import init as __init, Fore as __Fore
 except ModuleNotFoundError:
@@ -213,9 +214,8 @@ def w(list):
     for i in range(len(list)):
         print(list[i])
 
-def copy_of_images(*filename: str, name: list[str]=...):
+def copy_of_file(*filename: str, name: list[str]=...):
     index=0
-    print(len(name))
     for file in filename:
         with open(file, "rb") as file1:
             byte=file1.read()
@@ -223,10 +223,38 @@ def copy_of_images(*filename: str, name: list[str]=...):
             with open(f"Copy-{file}", "wb") as file2:
                 file2.write(byte)
         else:
-            print(index)
             with open(name[index], "wb") as file2:
                 file2.write(byte)
         index+=1
+
+def copy_of_images(*imagename: str, name: list[str]=..., filter=..., color: str=...):
+    "filters: `BlUR` , `CONTOUR` , `DETAIL` , `EDGE_ENHANCE` , `EDGE_ENHANCE_MORE` , `EMBOSS` , `FIND_EDGES` , `SMOOTH `, `SMOOTH_MORE` , `SHARPEN` ."
+    index=0
+    for image in imagename:
+        with Image.open(image).convert("RGB") as image_1:
+            if name==... or index>len(name)-1:
+                if filter!=... :
+                    exec(f"""filter=image_1.filter(ImageFilter.{filter})\nfilter.save("Copy-{image}")""")
+                    print(f"Copy-{image}")
+                else:
+                    image_1.save(f"Copy-{image}")
+            else:
+                if filter!=... :
+                    exec(f"""filter=image_1.filter(ImageFilter.{filter})\nfilter.save('{name[index]}')""")
+                    print(name[index])
+                else:
+                    image_1.save(name[index])
+            if color!=...:
+                i=Image.new("RGB",(image_1.width,image_1.height), color=color)
+                image_2=ImageChops.darker(image_1,i)
+                if name==... or index>len(name)-1:
+                    image_2.save(f"Copy-{image}")
+                else:
+                    image_2.save(f"{name[index]}")
+        index+=1
+
+def byte_code(s: str)->str:
+    return "".join(f"{ord(i):08b}" for i in s)
 
 if __name__=='__main__':
     input("hello")
