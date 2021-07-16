@@ -1,4 +1,7 @@
-from tkinter import Tk, Button, Label # Модуль для створення графічног інтерфейса.
+from tkinter import Tk, Button, Label # Модуль для створення графічного інтерфейса.
+from PIL import Image, ImageDraw
+
+
 a2=[]
 but_2=[]
 kk_2=[]
@@ -9,8 +12,22 @@ number_of_squares=0
 class Life:
 
     def __init__(self): 
-        self._x =47 # Кількість кнопок по x.
-        self._y =31 # Кількість кнопок по y.
+        self._x = 47 # Кількість кнопок по x.
+        self._y = 31 # Кількість кнопок по y.
+
+    def new_image(self,s="no"):
+        image=Image.new("RGB", (799+1, 844+1))
+        object=ImageDraw.Draw(image)
+        for y in range(31):
+            for x in range(47):
+                if a2[y][x]==1 or kk_2[y][x]==1:
+                    object.rectangle((x*17, y*27.226, (x+1)*17, (y+1)*27.226),fill="#835700",outline="#694100")
+                else:
+                    object.rectangle((x*17, y*27.226, (x+1)*17, (y+1)*27.226),fill="#ffffff",outline="#d8ecff")
+        if s=="yes":
+            image.save("C:\\Users\\user\\Desktop\\new image.jpg")
+        else:
+            image.show()
 
     def __pressing_on_green_button(self,s):
         global click
@@ -147,6 +164,7 @@ class Life:
             kk_1=[]
         Button(window, text="start", width=3, height=1, bg="#00aa00", command=lambda :self.__pressing_on_green_button(s)).place(x=20, y=811) # Створення зелиної копки з парамитрами.
         Button(window, text="to cleanse", width=7, height=1, bg="#aa0000", command=self.__to_cleanse).place(x=300, y=811) # Створення червоної копки з парамитрами.
+        Button(window, text="new image", width=8, height=1, bg="#8d4f00", command=lambda: self.new_image()).place(x=600,y=811)
         text=Label(text=f"Чорних квадратів: {number_of_squares}",fg="#dd8c5a" ,bg="#833200", font=1) # Створення текста з парамитрами.
         text.place(x=388,y=811) # Розміщення текса на вікні.
         text_2=Label(window, text=f"Зелену кнопку було нажато: {click}", bg="#833200", fg="#dd8c5a", font=15)
