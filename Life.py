@@ -1,4 +1,4 @@
-from tkinter import Tk, Button, Label # Модуль для створення графічного інтерфейса.
+from tkinter import Tk, Button, Label, filedialog # Модуль для створення графічного інтерфейса.
 from PIL import Image, ImageDraw
 import os
 
@@ -16,6 +16,7 @@ class Life:
         self._x = 47 # Кількість кнопок по x.
         self._y = 31 # Кількість кнопок по y.
 
+
     def new_image(self,s="no"):
         image=Image.new("RGB", (799+1, 844+1))
         object=ImageDraw.Draw(image)
@@ -26,14 +27,8 @@ class Life:
                 else:
                     object.rectangle((x*17, y*27.226, (x+1)*17, (y+1)*27.226),fill="#ffffff",outline="#d8ecff")
         if s=="yes":
-            number=0
-            path=next(os.walk("C:\Users\user\Desktop"))
-            for dir in path[1]:
-                if dir!=f"new image-{number}.jpg":
-                    image.save(f"C:\\Users\\user\\Desktop\\new image-{number}.jpg")
-                elif dir!=f"new image-{number+1}.jpg":
-                    image.save(f"C:\\Users\user\Desktop\\new image-{number+1}.jpg")
-                number+=1
+            file_name=filedialog.asksaveasfilename(filetypes=[("Файл \"JPG\"","*.jpg")])
+            image.save(f"{file_name}.jpg")
         else:
             image.show()
 
@@ -88,60 +83,60 @@ class Life:
         self.__tt()
         for kk_2_indexs in range(len(kk_2)):
             for indexs in range(len(kk_2[kk_2_indexs])):
-                if kk_2[kk_2_indexs][indexs]==1:
-                    but_2[kk_2_indexs][indexs]["bg"]="#000000" # Зміна кольору кнопки.
-                    but_2[kk_2_indexs][indexs]["activebackground"]="#000000"
-                    but_2[kk_2_indexs][indexs]["activeforeground"]="#c8c8c8"
-                    but_2[kk_2_indexs][indexs]["text"]="1" # Зміна тексту кнопки.
-                    but_2[kk_2_indexs][indexs]["fg"]="#c8c8c8" # Зміна кольору тексту кнопки.
-                    a2[kk_2_indexs][indexs]=1
-                    number_of_squares+=1 # Збільшення кількості квадратів.
-                    text["text"]=f"Чорних квадратів: {number_of_squares}"
+                if kk_2[kk_2_indexs][indexs] == 1:
+                    but_2[kk_2_indexs][indexs]["bg"] = "#000000" # Зміна кольору кнопки.
+                    but_2[kk_2_indexs][indexs]["activebackground"] = "#000000"
+                    but_2[kk_2_indexs][indexs]["activeforeground"] = "#c8c8c8"
+                    but_2[kk_2_indexs][indexs]["text"] = "1" # Зміна тексту кнопки.
+                    but_2[kk_2_indexs][indexs]["fg"] = "#c8c8c8" # Зміна кольору тексту кнопки.
+                    a2[kk_2_indexs][indexs] = 1
+                    number_of_squares += 1 # Збільшення кількості квадратів.
+                    text["text"] = f"Чорних квадратів: {number_of_squares}"
                 else:
-                    but_2[kk_2_indexs][indexs]["bg"]="#c8c8c8" # Зміна кольору кнопки.
-                    but_2[kk_2_indexs][indexs]["activebackground"]="#c8c8c8"
-                    but_2[kk_2_indexs][indexs]["activeforeground"]="#000000"
-                    but_2[kk_2_indexs][indexs]["text"]="0" # Зміна тексту кнопки.
-                    but_2[kk_2_indexs][indexs]["fg"]='#000000' # Зміна кольору тексту кнопки.
-                    a2[kk_2_indexs][indexs]=0
-            s+=a2[kk_2_indexs]
-        if sum(s)==0:
+                    but_2[kk_2_indexs][indexs]["bg"] = "#c8c8c8" # Зміна кольору кнопки.
+                    but_2[kk_2_indexs][indexs]["activebackground"] = "#c8c8c8"
+                    but_2[kk_2_indexs][indexs]["activeforeground"] = "#000000"
+                    but_2[kk_2_indexs][indexs]["text"] = "0" # Зміна тексту кнопки.
+                    but_2[kk_2_indexs][indexs]["fg"] = '#000000' # Зміна кольору тексту кнопки.
+                    a2[kk_2_indexs][indexs] = 0
+            s += a2[kk_2_indexs]
+        if sum(s) == 0:
             number_of_squares=0
-            text["text"]=f"Чорних квадратів: {number_of_squares}"
+            text["text"] = f"Чорних квадратів: {number_of_squares}"
 
     def __color_change(self,button,x,y): # Метод який виконується при нажимані кнопки.
-        if button["bg"]=="#c8c8c8": # Якщо кнопка буде сірого кольору.
+        if button["bg"] == "#c8c8c8": # Якщо кнопка буде сірого кольору.
             global number_of_squares
-            number_of_squares+=1 # Збільшення кількості квадратів.
-            text["text"]=f"Чорних квадратів: {number_of_squares}"
-            button["bg"]="#000000" # Зміна кольору кнопки.
-            button["activeforeground"]="#c8c8c8"
-            button["activebackground"]="#000000"
-            button["text"]="1" # Зміна тексту кнопки.
-            button["fg"]="#c8c8c8" # Зміна кольору тексту кнопки.
-            a2[y][x]=1
+            number_of_squares += 1 # Збільшення кількості квадратів.
+            text["text"] = f"Чорних квадратів: {number_of_squares}"
+            button["bg"] = "#000000" # Зміна кольору кнопки.
+            button["activeforeground"] = "#c8c8c8"
+            button["activebackground"] = "#000000"
+            button["text"] = "1" # Зміна тексту кнопки.
+            button["fg"] = "#c8c8c8" # Зміна кольору тексту кнопки.
+            a2[y][x] = 1
         else:
-            button["bg"]="#c8c8c8"
-            button["activebackground"]="#c8c8c8"
-            button["activeforeground"]="#000000"
-            button["text"]="0"
-            button["fg"]="#000000"
-            a2[y][x]=0
-            number_of_squares-=1 # Зминшення кількості квадратів.
-            text["text"]=f"Чорних квадратів: {number_of_squares}"
+            button["bg"] = "#c8c8c8"
+            button["activebackground"] = "#c8c8c8"
+            button["activeforeground"] = "#000000"
+            button["text"] = "0"
+            button["fg"] = "#000000"
+            a2[y][x] = 0
+            number_of_squares -= 1 # Зминшення кількості квадратів.
+            text["text"] = f"Чорних квадратів: {number_of_squares}"
 
     def __to_cleanse(self):
         global number_of_squares
         number_of_squares=0
-        text["text"]="Чорних квадратів: 0"
+        text["text"] = "Чорних квадратів: 0"
         for indexs_1 in range(self._y):
             for indexs_2 in range(self._x):
-                but_2[indexs_1][indexs_2]["bg"]="#c8c8c8" # Зміна кольору кнопки.
-                but_2[indexs_1][indexs_2]["activebackground"]="#c8c8c8"
-                but_2[indexs_1][indexs_2]["text"]="0" # Зміна тексту кнопки.
-                but_2[indexs_1][indexs_2]["fg"]="#000000" # Зміна кольору тексту кнопки.
-                a2[indexs_1][indexs_2]=0
-                kk_2[indexs_1][indexs_2]=0
+                but_2[indexs_1][indexs_2]["bg"] = "#c8c8c8" # Зміна кольору кнопки.
+                but_2[indexs_1][indexs_2]["activebackground"] = "#c8c8c8"
+                but_2[indexs_1][indexs_2]["text"] = "0" # Зміна тексту кнопки.
+                but_2[indexs_1][indexs_2]["fg"] = "#000000" # Зміна кольору тексту кнопки.
+                a2[indexs_1][indexs_2 ] = 0
+                kk_2[indexs_1][indexs_2] = 0
 
     def start_window(self): # Створення вікна з парамитрами.
         global window
@@ -172,7 +167,7 @@ class Life:
             kk_1=[]
         Button(window, text="start", width=3, height=1, bg="#00aa00", command=lambda :self.__pressing_on_green_button(s)).place(x=20, y=811) # Створення зелиної копки з парамитрами.
         Button(window, text="to cleanse", width=7, height=1, bg="#aa0000", command=self.__to_cleanse).place(x=300, y=811) # Створення червоної копки з парамитрами.
-        Button(window, text="new image", width=8, height=1, bg="#8d4f00", command=lambda: self.new_image()).place(x=600,y=811)
+        Button(window, text="new image", width=8, height=1, bg="#8d4f00", command=lambda: self.new_image("yes")).place(x=600,y=811)
         text=Label(text=f"Чорних квадратів: {number_of_squares}",fg="#dd8c5a" ,bg="#833200", font=1) # Створення текста з парамитрами.
         text.place(x=388,y=811) # Розміщення текса на вікні.
         text_2=Label(window, text=f"Зелену кнопку було нажато: {click}", bg="#833200", fg="#dd8c5a", font=15)
