@@ -1,5 +1,6 @@
 from tkinter import Tk, Button, Label # Модуль для створення графічного інтерфейса.
 from PIL import Image, ImageDraw
+import os
 
 
 a2=[]
@@ -25,13 +26,20 @@ class Life:
                 else:
                     object.rectangle((x*17, y*27.226, (x+1)*17, (y+1)*27.226),fill="#ffffff",outline="#d8ecff")
         if s=="yes":
-            image.save("C:\\Users\\user\\Desktop\\new image.jpg")
+            number=0
+            path=next(os.walk("C:\Users\user\Desktop"))
+            for dir in path[1]:
+                if dir!=f"new image-{number}.jpg":
+                    image.save(f"C:\\Users\\user\\Desktop\\new image-{number}.jpg")
+                elif dir!=f"new image-{number+1}.jpg":
+                    image.save(f"C:\\Users\user\Desktop\\new image-{number+1}.jpg")
+                number+=1
         else:
             image.show()
 
     def __pressing_on_green_button(self,s):
         global click
-        click+=1 # Збільшення зміної click на 1.
+        click+=1
         text_2["text"]=f"Зелену кнопку було нажато: {click}"
         if s<=15 and s>0:
             for i in range(1,s+1):
