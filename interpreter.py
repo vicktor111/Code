@@ -64,59 +64,59 @@ def interpreter(file: name_file)->Print:
                 parameters=[i for i in code.split(",")]
             window.geometry(f"{parameters[0]}x{parameters[0][0:len(parameters[1])]}")
 
-        elif code[0:7]=="script:" and n==1: #3.
+        elif code[0:7]=="script:" and n==1:
             code=code[8:len(code)+1]
             if code.count("/")==1:
                 code=[i for i in code.split("/")]
                 file=open(code[0][0:len(code[0])-2],'r',encoding='utf8')
                 code_file=file.read()
+                exec(code_file)
             else:
                 file=open(code[0:len(code)-1],'r',encoding='utf8')
                 code_file=file.read()
+                exec(code_file)
 
-        elif code[0:6]=="title:" and n==1: #4.
+        elif code[0:6]=="title:" and n==1:
             code=code[7:len(code)+1]
             if code.count("/")==1:
                 code=[i for i in code.split("/")]
                 window.title(f"{str(code[0])[0:len(code[0])-2]}")
             window.title(f"{code[0:len(code)-1]}")
 
-        elif code[0:4]=="end;": #5.
+        elif code[0:4]=="end;": #2.
             if n==1:
                 window.mainloop()
                 n=0
             else:
                 raise SyntaxError(f"{code}")
 
-        elif code[0:len(code)+1]=="Button{" and n==1: #6.
+        elif code[0:len(code)+1]=="Button{" and n==1: #3.
             button=Button(window)
             list_with_button.append(button)
             g=0
             f=1
             button_1=1
 
-        elif code[0:len(code)+1]=="Label{" and n==1: #7.
+        elif code[0:len(code)+1]=="Label{" and n==1: #4.
             label=Label(window)
             list_with_label.append(label)
             g=0
             f=1
             label_1=1
 
-        elif code[0:len(code)+1]=="Entry{" and n==1: #8.
+        elif code[0:len(code)+1]=="Entry{" and n==1: #4.
             entry=Entry(window)
-            list_with_entry.append(entry)
             g=0
             f=1
             entry_1=1
 
-        elif code[0:len(code)+1]=="Text{" and n==1: #9.
+        elif code[0:len(code)+1]=="Text{" and n==1: #4.
             text=Text(window)
-            list_with_text.append(text)
             g=0
             f=1
             text_1=1
 
-        elif code[0:5]=="  bg:" and f==1: #10.
+        elif code[0:5]=="  bg:" and f==1: #5.
             if button_1==1:
                 atribute_bg(button,6,code)
             if label_1==1:
@@ -127,7 +127,7 @@ def interpreter(file: name_file)->Print:
                 atribute_bg(text,6,code)
             f=1
 
-        elif code[0:8]=="  width:" and f==1: #11.
+        elif code[0:8]=="  width:" and f==1: #6.
             if button_1==1:
                 atribute_width(button,9,code)
             if label_1==1:
@@ -138,7 +138,7 @@ def interpreter(file: name_file)->Print:
                 atribute_width(text,9,code)
             f=1
 
-        elif code[0:9]=="  height:" and f==1: #12.
+        elif code[0:9]=="  height:" and f==1: #7.
             if button_1==1:
                 atribute_height(button,10,code)
             if label_1==1:
@@ -149,7 +149,7 @@ def interpreter(file: name_file)->Print:
                 atribute_height(text,10,code)
             f=1
 
-        elif code[0:7]=="  text:" and f==1: #13.
+        elif code[0:7]=="  text:" and f==1: #8.
             if button_1==1:
                 atribute_text(button,8,code)
             if label_1==1:
@@ -177,7 +177,7 @@ def interpreter(file: name_file)->Print:
                 raise SyntaxError(f"{code}")
             f=1
 
-        elif code=="}": #16.
+        elif code=="}": #10.
             if button_1==1:
                 locage(button,g)
                 button_1=0
@@ -191,9 +191,9 @@ def interpreter(file: name_file)->Print:
                 locage(text,g)
                 text_1=0
             f=0
-        elif code=="": #17.
+        elif code=="": #11.
             pass
-        elif code[0]=="/": #18.
+        elif code[0]=="/": #12.
             pass
         else:
             raise SyntaxError(f"{code}")
