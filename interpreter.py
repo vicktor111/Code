@@ -83,7 +83,24 @@ def interpreter(file: name_file)->Print:
                 window.title(f"{str(code[0])[0:len(code[0])-2]}")
             window.title(f"{code[0:len(code)-1]}")
 
-        elif code[0:4]=="end;": #2.
+        elif code[0:7]=="script:" and n==1: #3.
+            code=code[8:len(code)+1]
+            if code.count("/")==1:
+                code=[i for i in code.split("/")]
+                file=open(code[0][0:len(code[0])-2],'r',encoding='utf8')
+                code_file=file.read()
+            else:
+                file=open(code[0:len(code)-1],'r',encoding='utf8')
+                code_file=file.read()
+
+        elif code[0:6]=="title:" and n==1: #4.
+            code=code[7:len(code)+1]
+            if code.count("/")==1:
+                code=[i for i in code.split("/")]
+                window.title(f"{str(code[0])[0:len(code[0])-2]}")
+            window.title(f"{code[0:len(code)-1]}")
+
+        elif code[0:4]=="end;": #5.
             if n==1:
                 window.mainloop()
                 n=0
@@ -106,17 +123,19 @@ def interpreter(file: name_file)->Print:
 
         elif code[0:len(code)+1]=="Entry{" and n==1: #4.
             entry=Entry(window)
+            list_with_entry.append(entry)
             g=0
             f=1
             entry_1=1
 
-        elif code[0:len(code)+1]=="Text{" and n==1: #4.
+        elif code[0:len(code)+1]=="Text{" and n==1: #9.
             text=Text(window)
+            list_with_text.append(text)
             g=0
             f=1
             text_1=1
 
-        elif code[0:5]=="  bg:" and f==1: #5.
+        elif code[0:5]=="  bg:" and f==1: #10.
             if button_1==1:
                 atribute_bg(button,6,code)
             if label_1==1:
@@ -149,7 +168,7 @@ def interpreter(file: name_file)->Print:
                 atribute_height(text,10,code)
             f=1
 
-        elif code[0:7]=="  text:" and f==1: #8.
+        elif code[0:7]=="  text:" and f==1: #13.
             if button_1==1:
                 atribute_text(button,8,code)
             if label_1==1:
@@ -177,7 +196,7 @@ def interpreter(file: name_file)->Print:
                 raise SyntaxError(f"{code}")
             f=1
 
-        elif code=="}": #10.
+        elif code=="}": #16.
             if button_1==1:
                 locage(button,g)
                 button_1=0
@@ -191,7 +210,7 @@ def interpreter(file: name_file)->Print:
                 locage(text,g)
                 text_1=0
             f=0
-        elif code=="": #11.
+        elif code=="": #17.
             pass
         elif code[0]=="/": #12.
             pass
