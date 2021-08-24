@@ -78,7 +78,6 @@ class Object_Button():
             number_of_squares = 0
             text_1["text"] = f"Чорних квадратів: {number_of_squares}"
 
-    # Метод який виконується при нажимані кнопки.
     def color_change(self, button, x, y):
         if button["bg"] == "#c8c8c8":  # Якщо кнопка буде сірого кольору.
             global number_of_squares
@@ -100,12 +99,12 @@ class Object_Button():
             number_of_squares -= 1  # Зминшення кількості квадратів.
             text_1["text"] = f"Чорних квадратів: {number_of_squares}"
 
-    def to_cleanse(self):
+    def to_cleanse(self, game):
         global number_of_squares
         number_of_squares = 0
         text_1["text"] = "Чорних квадратів: 0"
-        for indexs_1 in range(self._y):
-            for indexs_2 in range(self._x):
+        for indexs_1 in range(game._y):
+            for indexs_2 in range(game._x):
                 # Зміна кольору кнопки.
                 but_2[indexs_1][indexs_2]["bg"] = "#c8c8c8"
                 but_2[indexs_1][indexs_2]["activebackground"] = "#c8c8c8"
@@ -114,7 +113,6 @@ class Object_Button():
                 but_2[indexs_1][indexs_2]["fg"] = "#000000"
                 two_de_list[indexs_1][indexs_2] = 0
                 kk_2[indexs_1][indexs_2] = 0
-    pass
 
 
 class Game:
@@ -185,7 +183,7 @@ class Game:
         Button(window, text="start", width=3, 
                 height=1, bg="#00aa00", command=lambda: self.__pressing_on_green_button(number, btn)).place(x=20, y=811)  # Створення зеленої копки з парамитрами.
         Button(window, text="to cleanse",
-                    width=7, height=1, bg="#aa0000", command=lambda: btn.color_change(button_1, x, y)).place(x=300, y=811)  # Створення червоної копки з парамитрами.
+                    width=7, height=1, bg="#aa0000", command=lambda button_1=button_1 : btn.to_cleanse(self)).place(x=300, y=811)  # Створення червоної копки з парамитрами.
         Button(window, text="new image", width=8, height=1, bg="#8d4f00",
                command=lambda: self.new_image("yes")).place(x=600, y=811)
         # Створення текста з парамитрами.
