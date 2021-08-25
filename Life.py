@@ -117,15 +117,15 @@ class Object_Button():
 
 class Game:
 
-    def __init__(self):
-        self._x = 47  # Кількість кнопок по x.
-        self._y = 31  # Кількість кнопок по y.
+    def __init__(self, x=47, y=31):
+        self._x = x  # Кількість кнопок по x.
+        self._y = y  # Кількість кнопок по y.
 
     def new_image(self, string="no"):
-        image = Image.new("RGB", (799 + 1, 844 + 1))
+        image = Image.new("RGB", (int(17 *self._x) + 1, int(27.226 * self._y) + 1))
         object = ImageDraw.Draw(image)
-        for y in range(31):
-            for x in range(47):
+        for y in range(self._y):
+            for x in range(self._y):
                 if two_de_list[y][x] == 1 or kk_2[y][x] == 1:
                     object.rectangle(
                         (x * 17, y * 27.226, (x+1) * 17, (y+1) * 27.226), fill="#835700", outline="#694100")
