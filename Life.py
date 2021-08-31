@@ -1,46 +1,49 @@
 # import os
-from tkinter import Tk, Button, Label, filedialog
+from tkinter import Tk, Button, Label, filedialog, Menu, Event
 from PIL import Image, ImageDraw
 
 
-two_de_list = []
+two_d_list = []
 but_2 = []
 kk_2 = []
 number = 1
 num_of_click = 0
 number_of_squares = 0
 
+def event_1(event: Event, menu: Menu):
+    menu.post(event.x_root, event.y_root)
+
 
 class Object_Button():
 
     def tt(self):
-        for a2_indexs in range(len(two_de_list)):
+        for a2_indexs in range(len(two_d_list)):
             num = 0
-            for indexs in range(len(two_de_list[a2_indexs])):
+            for indexs in range(len(two_d_list[a2_indexs])):
                 num = 0
-                if indexs < len(two_de_list[a2_indexs])-1:
-                    if two_de_list[a2_indexs][indexs + 1] == 1:
+                if indexs < len(two_d_list[a2_indexs])-1:
+                    if two_d_list[a2_indexs][indexs + 1] == 1:
                         num += 1
                 if indexs > 1:
-                    if two_de_list[a2_indexs][indexs - 1] == 1:
+                    if two_d_list[a2_indexs][indexs - 1] == 1:
                         num += 1
-                if a2_indexs < len(two_de_list)-1:
-                    if two_de_list[a2_indexs + 1][indexs] == 1:
+                if a2_indexs < len(two_d_list)-1:
+                    if two_d_list[a2_indexs + 1][indexs] == 1:
                         num += 1
                 if a2_indexs > 1:
-                    if two_de_list[a2_indexs - 1][indexs] == 1:
+                    if two_d_list[a2_indexs - 1][indexs] == 1:
                         num += 1
-                if a2_indexs < len(two_de_list)-1 and indexs > 1:
-                    if two_de_list[a2_indexs + 1][indexs - 1] == 1:
+                if a2_indexs < len(two_d_list)-1 and indexs > 1:
+                    if two_d_list[a2_indexs + 1][indexs - 1] == 1:
                         num += 1
-                if a2_indexs < len(two_de_list)-1 and indexs < len(two_de_list[a2_indexs])-1:
-                    if two_de_list[a2_indexs + 1][indexs + 1] == 1:
+                if a2_indexs < len(two_d_list)-1 and indexs < len(two_d_list[a2_indexs])-1:
+                    if two_d_list[a2_indexs + 1][indexs + 1] == 1:
                         num += 1
-                if a2_indexs > 1 and indexs < len(two_de_list[a2_indexs])-1:
-                    if two_de_list[a2_indexs - 1][indexs + 1] == 1:
+                if a2_indexs > 1 and indexs < len(two_d_list[a2_indexs])-1:
+                    if two_d_list[a2_indexs - 1][indexs + 1] == 1:
                         num += 1
                 if a2_indexs > 1 and a2_indexs > 1:
-                    if two_de_list[a2_indexs - 1][indexs - 1] == 1:
+                    if two_d_list[a2_indexs - 1][indexs - 1] == 1:
                         num += 1
                 if num == 2:
                     kk_2[a2_indexs][indexs] = 1
@@ -63,7 +66,7 @@ class Object_Button():
                     but_2[kk_2_indexs][indexs]["text"] = "1"
                     # Зміна кольору тексту кнопки.
                     but_2[kk_2_indexs][indexs]["fg"] = "#c8c8c8"
-                    two_de_list[kk_2_indexs][indexs] = 1
+                    two_d_list[kk_2_indexs][indexs] = 1
                     number_of_squares += 1  # Збільшення кількості квадратів.
                     text_1["text"] = f"Чорних квадратів: {number_of_squares}"
                 else:
@@ -72,8 +75,8 @@ class Object_Button():
                     but_2[kk_2_indexs][indexs]["activeforeground"] = "#000000"
                     but_2[kk_2_indexs][indexs]["text"] = "0"
                     but_2[kk_2_indexs][indexs]["fg"] = '#000000'
-                    two_de_list[kk_2_indexs][indexs] = 0
-            number += two_de_list[kk_2_indexs]
+                    two_d_list[kk_2_indexs][indexs] = 0
+            number += two_d_list[kk_2_indexs]
         if sum(number) == 0:
             number_of_squares = 0
             text_1["text"] = f"Чорних квадратів: {number_of_squares}"
@@ -88,14 +91,14 @@ class Object_Button():
             button["activebackground"] = "#000000"
             button["text"] = "1"  # Зміна тексту кнопки.
             button["fg"] = "#c8c8c8"  # Зміна кольору тексту кнопки.
-            two_de_list[y][x] = 1
+            two_d_list[y][x] = 1
         else:
             button["bg"] = "#c8c8c8"
             button["activebackground"] = "#c8c8c8"
             button["activeforeground"] = "#000000"
             button["text"] = "0"
             button["fg"] = "#000000"
-            two_de_list[y][x] = 0
+            two_d_list[y][x] = 0
             number_of_squares -= 1  # Зминшення кількості квадратів.
             text_1["text"] = f"Чорних квадратів: {number_of_squares}"
 
@@ -111,7 +114,7 @@ class Object_Button():
                 but_2[indexs_1][indexs_2]["text"] = "0"  # Зміна тексту кнопки.
                 # Зміна кольору тексту кнопки.
                 but_2[indexs_1][indexs_2]["fg"] = "#000000"
-                two_de_list[indexs_1][indexs_2] = 0
+                two_d_list[indexs_1][indexs_2] = 0
                 kk_2[indexs_1][indexs_2] = 0
 
 
@@ -125,8 +128,8 @@ class Game:
         image = Image.new("RGB", (int(17 *self._x) + 1, int(27.226 * self._y) + 1))
         object = ImageDraw.Draw(image)
         for y in range(self._y):
-            for x in range(self._y):
-                if two_de_list[y][x] == 1 or kk_2[y][x] == 1:
+            for x in range(self._x):
+                if two_d_list[y][x] == 1 or kk_2[y][x] == 1:
                     object.rectangle(
                         (x * 17, y * 27.226, (x+1) * 17, (y+1) * 27.226), fill="#835700", outline="#694100")
                 else:
@@ -149,17 +152,22 @@ class Game:
         else:
             object.change_color_buttons()
 
-    def start_window(self):  # Створення вікна з парамитрами.
+    def start_window(self):
         global window
         window = Tk()  # Створення об'єкта вікно.
         window.title("Life")
         window.config(bg="#833200")
+        menu_1 = Menu(window, tearoff=0)
+        menu_1.add_command(label='Очестети поле', background="#aa0000",
+                       command=lambda: btn.to_cleanse(self))
+        menu_1.add_command(label='Зберехти картинку', background="#8d4f00",
+                       command=lambda: self.new_image("yes"))
+        window.bind("<Button-3>", lambda event: event_1(event, menu_1))
 
     def creation_of_buttons(self):
         global text_1, text_2
         window.geometry("799x844")  # Розміри вікна.
         window.resizable(False, False)  # Заборона на зміну розміра вікна.
-        btn = Object_Button()
         kk_1 = []
         list_with_number = []
         buttons = []
@@ -176,7 +184,7 @@ class Game:
                 button_1.grid(column=x, row=y)  # Метод для розподілу кнопок.
             kk_2.append(kk_1)
             but_2.append(buttons)
-            two_de_list.append(list_with_number)
+            two_d_list.append(list_with_number)
             list_with_number = []
             buttons = []
             kk_1 = []
@@ -197,5 +205,6 @@ class Game:
 
 
 game = Game()
+btn = Object_Button()
 game.start_window()
 game.creation_of_buttons()
