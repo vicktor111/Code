@@ -1,11 +1,10 @@
-# import os
 from tkinter import Tk, Button, Label, filedialog, Menu, Event
 from PIL import Image, ImageDraw
 
 
 two_d_list = []
 but_2 = []
-kk_2 = []
+k_2 = []
 number = 1
 num_of_click = 0
 number_of_squares = 0
@@ -21,62 +20,62 @@ class Object_Button():
             num = 0
             for indexs in range(len(two_d_list[a2_indexs])):
                 num = 0
-                if indexs < len(two_d_list[a2_indexs])-1:
+                if indexs < len(two_d_list[a2_indexs]) - 1:
                     if two_d_list[a2_indexs][indexs + 1] == 1:
                         num += 1
                 if indexs > 1:
                     if two_d_list[a2_indexs][indexs - 1] == 1:
                         num += 1
-                if a2_indexs < len(two_d_list)-1:
+                if a2_indexs < len(two_d_list) - 1:
                     if two_d_list[a2_indexs + 1][indexs] == 1:
                         num += 1
                 if a2_indexs > 1:
                     if two_d_list[a2_indexs - 1][indexs] == 1:
                         num += 1
-                if a2_indexs < len(two_d_list)-1 and indexs > 1:
+                if a2_indexs < len(two_d_list) - 1 and indexs > 1:
                     if two_d_list[a2_indexs + 1][indexs - 1] == 1:
                         num += 1
-                if a2_indexs < len(two_d_list)-1 and indexs < len(two_d_list[a2_indexs])-1:
+                if a2_indexs < len(two_d_list) - 1 and indexs < len(two_d_list[a2_indexs]) - 1:
                     if two_d_list[a2_indexs + 1][indexs + 1] == 1:
                         num += 1
-                if a2_indexs > 1 and indexs < len(two_d_list[a2_indexs])-1:
+                if a2_indexs > 1 and indexs < len(two_d_list[a2_indexs]) - 1:
                     if two_d_list[a2_indexs - 1][indexs + 1] == 1:
                         num += 1
                 if a2_indexs > 1 and a2_indexs > 1:
                     if two_d_list[a2_indexs - 1][indexs - 1] == 1:
                         num += 1
                 if num == 2:
-                    kk_2[a2_indexs][indexs] = 1
+                    k_2[a2_indexs][indexs] = 1
                 else:
-                    kk_2[a2_indexs][indexs] = 0
+                    k_2[a2_indexs][indexs] = 0
 
     def change_color_buttons(self):
         number = []
         global number_of_squares
         number_of_squares = 0
         self.tt()
-        for kk_2_indexs in range(len(kk_2)):
-            for indexs in range(len(kk_2[kk_2_indexs])):
-                if kk_2[kk_2_indexs][indexs] == 1:
+        for k_2_indexs in range(len(k_2)):
+            for indexs in range(len(k_2[k_2_indexs])):
+                if k_2[k_2_indexs][indexs] == 1:
                     # Зміна кольору кнопки.
-                    but_2[kk_2_indexs][indexs]["bg"] = "#000000"
-                    but_2[kk_2_indexs][indexs]["activebackground"] = "#000000"
-                    but_2[kk_2_indexs][indexs]["activeforeground"] = "#c8c8c8"
+                    but_2[k_2_indexs][indexs]["bg"] = "#000000"
+                    but_2[k_2_indexs][indexs]["activebackground"] = "#000000"
+                    but_2[k_2_indexs][indexs]["activeforeground"] = "#c8c8c8"
                     # Зміна тексту кнопки.
-                    but_2[kk_2_indexs][indexs]["text"] = "1"
+                    but_2[k_2_indexs][indexs]["text"] = "1"
                     # Зміна кольору тексту кнопки.
-                    but_2[kk_2_indexs][indexs]["fg"] = "#c8c8c8"
-                    two_d_list[kk_2_indexs][indexs] = 1
+                    but_2[k_2_indexs][indexs]["fg"] = "#c8c8c8"
+                    two_d_list[k_2_indexs][indexs] = 1
                     number_of_squares += 1  # Збільшення кількості квадратів.
                     text_1["text"] = f"Чорних квадратів: {number_of_squares}"
                 else:
-                    but_2[kk_2_indexs][indexs]["bg"] = "#c8c8c8"
-                    but_2[kk_2_indexs][indexs]["activebackground"] = "#c8c8c8"
-                    but_2[kk_2_indexs][indexs]["activeforeground"] = "#000000"
-                    but_2[kk_2_indexs][indexs]["text"] = "0"
-                    but_2[kk_2_indexs][indexs]["fg"] = '#000000'
-                    two_d_list[kk_2_indexs][indexs] = 0
-            number += two_d_list[kk_2_indexs]
+                    but_2[k_2_indexs][indexs]["bg"] = "#c8c8c8"
+                    but_2[k_2_indexs][indexs]["activebackground"] = "#c8c8c8"
+                    but_2[k_2_indexs][indexs]["activeforeground"] = "#000000"
+                    but_2[k_2_indexs][indexs]["text"] = "0"
+                    but_2[k_2_indexs][indexs]["fg"] = '#000000'
+                    two_d_list[k_2_indexs][indexs] = 0
+            number += two_d_list[k_2_indexs]
         if sum(number) == 0:
             number_of_squares = 0
             text_1["text"] = f"Чорних квадратів: {number_of_squares}"
@@ -115,7 +114,7 @@ class Object_Button():
                 # Зміна кольору тексту кнопки.
                 but_2[indexs_1][indexs_2]["fg"] = "#000000"
                 two_d_list[indexs_1][indexs_2] = 0
-                kk_2[indexs_1][indexs_2] = 0
+                k_2[indexs_1][indexs_2] = 0
 
 
 class Game:
@@ -129,12 +128,12 @@ class Game:
         object = ImageDraw.Draw(image)
         for y in range(self._y):
             for x in range(self._x):
-                if two_d_list[y][x] == 1 or kk_2[y][x] == 1:
+                if two_d_list[y][x] == 1 or k_2[y][x] == 1:
                     object.rectangle(
-                        (x * 17, y * 27.226, (x+1) * 17, (y+1) * 27.226), fill="#835700", outline="#694100")
+                        (x * 17, y * 27.226, (x + 1) * 17, (y + 1) * 27.226), fill="#835700", outline="#694100")
                 else:
                     object.rectangle(
-                        (x * 17, y * 27.226, (x+1) * 17, (y+1) * 27.226), fill="#ffffff", outline="#d8ecff")
+                        (x * 17, y * 27.226, (x + 1) * 17, (y + 1) * 27.226), fill="#ffffff", outline="#d8ecff")
         if string == "yes":
             file_name = filedialog.asksaveasfilename(
                 filetypes=[("Файл \"JPG\"", "*.jpg")])
@@ -156,6 +155,7 @@ class Game:
         global window
         window = Tk()  # Створення об'єкта вікно.
         window.title("Life")
+        window.iconbitmap(r"E:\New folder\programs\git\Code\icons80.ico")
         window.config(bg="#833200")
         menu_1 = Menu(window, tearoff=0)
         menu_1.add_command(label='Очестети поле', background="#aa0000",
@@ -168,9 +168,9 @@ class Game:
         global text_1, text_2
         window.geometry("799x844")  # Розміри вікна.
         window.resizable(False, False)  # Заборона на зміну розміра вікна.
-        kk_1 = []
+        k_1 = []
         list_with_number = []
-        buttons = []
+        but_1 = []
         for y in range(self._y):
             for x in range(self._x):
                 button_1 = Button(window, text="0", width=1, height=1, bg="#c8c8c8", fg="#000000",
@@ -178,20 +178,20 @@ class Game:
                 # Доповнені параметри для кнопки.
                 button_1.config(command=lambda button=button_1,
                                 x=x, y=y: btn.color_change(button, x, y))
-                kk_1.append(0)
-                buttons.append(button_1)
+                k_1.append(0)
+                but_1.append(button_1)
                 list_with_number.append(0)
                 button_1.grid(column=x, row=y)  # Метод для розподілу кнопок.
-            kk_2.append(kk_1)
-            but_2.append(buttons)
+            k_2.append(k_1)
+            but_2.append(but_1)
             two_d_list.append(list_with_number)
             list_with_number = []
-            buttons = []
-            kk_1 = []
-        Button(window, text="start", width=3, 
+            but_1 = []
+            k_1 = []
+        Button(window, text="start", width=3,
                 height=1, bg="#00aa00", command=lambda: self.__pressing_on_green_button(number, btn)).place(x=20, y=811)  # Створення зеленої копки з парамитрами.
         Button(window, text="to cleanse",
-                    width=7, height=1, bg="#aa0000", command=lambda button_1=button_1 : btn.to_cleanse(self)).place(x=300, y=811)  # Створення червоної копки з парамитрами.
+                    width=7, height=1, bg="#aa0000", command=lambda: btn.to_cleanse(self)).place(x=300, y=811)  # Створення червоної копки з парамитрами.
         Button(window, text="new image", width=8, height=1, bg="#8d4f00",
                command=lambda: self.new_image("yes")).place(x=600, y=811)
         # Створення текста з парамитрами.
