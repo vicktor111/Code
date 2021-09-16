@@ -152,15 +152,15 @@ class Game:
             object.change_color_buttons()
 
     def start_window(self):
-        global window
+        global window, menu_1
         window = Tk()  # Створення об'єкта вікно.
         window.title("Life")
         window.iconbitmap(r"E:\New folder\programs\git\Code\icons80.ico")
         window.config(bg="#833200")
         menu_1 = Menu(window, tearoff=0)
-        menu_1.add_command(label='Очестети поле', background="#aa0000",
+        menu_1.add_command(label='to cleanse', background="#aa0000",
                        command=lambda: btn.to_cleanse(self))
-        menu_1.add_command(label='Зберехти картинку', background="#8d4f00",
+        menu_1.add_command(label='new image', background="#8d4f00",
                        command=lambda: self.new_image("yes"))
         window.bind("<Button-3>", lambda event: event_1(event, menu_1))
 
@@ -201,6 +201,8 @@ class Game:
         text_2 = Label(window, text=f"Зелену кнопку було нажато: {num_of_click}",
                              bg="#833200", fg="#dd8c5a", font=15)
         text_2.place(x=60, y=811)
+        menu_1.add_command(label="start", background="#007700",
+                       command=lambda: self.__pressing_on_green_button(number, btn))
         window.mainloop()  # Метод який недає закретись просто так вікну.
 
 
