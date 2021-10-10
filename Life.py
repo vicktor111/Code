@@ -1,6 +1,6 @@
 from tkinter import Tk, Button, Label, filedialog, Menu, Event
 from PIL import Image, ImageDraw
-
+import config
 
 two_d_list = []
 but_2 = []
@@ -9,8 +9,19 @@ number = 1
 num_of_click = 0
 number_of_squares = 0
 
+def open_file(filename="config"):
+    with open(filename, "r+") as file:
+        return file.read().split("\n")
+
 def event_1(event: Event, menu: Menu):
     menu.post(event.x_root, event.y_root)
+
+def event(info):
+    window.config(bg=info[0])
+    for i in range(len(two_d_list)):
+        for i_2 in range(len(two_d_list[i])):
+            if two_d_list[i][i_2] == 0:
+                but_2[i][i_2].config(bg=info[1])
 
 
 class Object_Button():
@@ -50,6 +61,7 @@ class Object_Button():
                     k_2[a2_indexs][indexs] = 0
 
     def change_color_buttons(self):
+        info = open_file()
         number = []
         global number_of_squares
         number_of_squares = 0
@@ -60,17 +72,17 @@ class Object_Button():
                     # Зміна кольору кнопки.
                     but_2[k_2_indexs][indexs]["bg"] = "#000000"
                     but_2[k_2_indexs][indexs]["activebackground"] = "#000000"
-                    but_2[k_2_indexs][indexs]["activeforeground"] = "#c8c8c8"
+                    but_2[k_2_indexs][indexs]["activeforeground"] = info[1]
                     # Зміна тексту кнопки.
                     but_2[k_2_indexs][indexs]["text"] = "1"
                     # Зміна кольору тексту кнопки.
-                    but_2[k_2_indexs][indexs]["fg"] = "#c8c8c8"
+                    but_2[k_2_indexs][indexs]["fg"] = info[1]
                     two_d_list[k_2_indexs][indexs] = 1
                     number_of_squares += 1  # Збільшення кількості квадратів.
                     text_1["text"] = f"Чорних квадратів: {number_of_squares}"
                 else:
-                    but_2[k_2_indexs][indexs]["bg"] = "#c8c8c8"
-                    but_2[k_2_indexs][indexs]["activebackground"] = "#c8c8c8"
+                    but_2[k_2_indexs][indexs]["bg"] = info[1]
+                    but_2[k_2_indexs][indexs]["activebackground"] = info[1]
                     but_2[k_2_indexs][indexs]["activeforeground"] = "#000000"
                     but_2[k_2_indexs][indexs]["text"] = "0"
                     but_2[k_2_indexs][indexs]["fg"] = '#000000'
@@ -81,19 +93,20 @@ class Object_Button():
             text_1["text"] = f"Чорних квадратів: {number_of_squares}"
 
     def color_change(self, button, x, y):
-        if button["bg"] == "#c8c8c8":  # Якщо кнопка буде сірого кольору.
+        info = open_file()
+        if button["bg"] == info[1]:  # Якщо кнопка буде сірого кольору.
             global number_of_squares
             number_of_squares += 1  # Збільшення кількості квадратів.
             text_1["text"] = f"Чорних квадратів: {number_of_squares}"
             button["bg"] = "#000000"  # Зміна кольору кнопки.
-            button["activeforeground"] = "#c8c8c8"
+            button["activeforeground"] = info[1]
             button["activebackground"] = "#000000"
             button["text"] = "1"  # Зміна тексту кнопки.
-            button["fg"] = "#c8c8c8"  # Зміна кольору тексту кнопки.
+            button["fg"] = info[1]  # Зміна кольору тексту кнопки.
             two_d_list[y][x] = 1
         else:
-            button["bg"] = "#c8c8c8"
-            button["activebackground"] = "#c8c8c8"
+            button["bg"] = info[1]
+            button["activebackground"] = info[1]
             button["activeforeground"] = "#000000"
             button["text"] = "0"
             button["fg"] = "#000000"
@@ -102,14 +115,15 @@ class Object_Button():
             text_1["text"] = f"Чорних квадратів: {number_of_squares}"
 
     def to_cleanse(self, game):
+        info = open_file()
         global number_of_squares
         number_of_squares = 0
         text_1["text"] = "Чорних квадратів: 0"
         for indexs_1 in range(game._y):
             for indexs_2 in range(game._x):
                 # Зміна кольору кнопки.
-                but_2[indexs_1][indexs_2]["bg"] = "#c8c8c8"
-                but_2[indexs_1][indexs_2]["activebackground"] = "#c8c8c8"
+                but_2[indexs_1][indexs_2]["bg"] = info[1]
+                but_2[indexs_1][indexs_2]["activebackground"] = info[1]
                 but_2[indexs_1][indexs_2]["text"] = "0"  # Зміна тексту кнопки.
                 # Зміна кольору тексту кнопки.
                 but_2[indexs_1][indexs_2]["fg"] = "#000000"
@@ -141,7 +155,7 @@ class Game:
         else:
             image.show()
 
-    def __pressing_on_green_button(self, num, object: Object_Button):
+    def _pressing_on_green_button(self, num, object: Object_Button):
         global num_of_click
         num_of_click += 1
         text_2["text"] = f"Зелену кнопку було нажато: {num_of_click}"
@@ -151,21 +165,24 @@ class Game:
         else:
             object.change_color_buttons()
 
-    def start_window(self):
+    def start(self):
         global window, menu_1
+        info = open_file()
         window = Tk()  # Створення об'єкта вікно.
         window.title("Life")
         window.iconbitmap(r"E:\New folder\programs\git\Code\icons80.ico")
-        window.config(bg="#833200")
+        window.config(bg=info[0])
         menu_1 = Menu(window, tearoff=0)
         menu_1.add_command(label='to cleanse', background="#aa0000",
                        command=lambda: btn.to_cleanse(self))
         menu_1.add_command(label='new image', background="#8d4f00",
                        command=lambda: self.new_image("yes"))
+        
         window.bind("<Button-3>", lambda event: event_1(event, menu_1))
 
     def creation_of_buttons(self):
         global text_1, text_2
+        info = open_file()
         window.geometry("799x844")  # Розміри вікна.
         window.resizable(False, False)  # Заборона на зміну розміра вікна.
         k_1 = []
@@ -173,8 +190,8 @@ class Game:
         but_1 = []
         for y in range(self._y):
             for x in range(self._x):
-                button_1 = Button(window, text="0", width=1, height=1, bg="#c8c8c8", fg="#000000",
-                                  activebackground="#c8c8c8", activeforeground="#000000")  # Створення копки з парамитрами.
+                button_1 = Button(window, text="0", width=1, height=1, bg=info[1], fg="#000000",
+                                  activebackground=info[1], activeforeground="#000000")  # Створення копки з парамитрами.
                 # Доповнені параметри для кнопки.
                 button_1.config(command=lambda button=button_1,
                                 x=x, y=y: btn.color_change(button, x, y))
@@ -182,6 +199,7 @@ class Game:
                 but_1.append(button_1)
                 list_with_number.append(0)
                 button_1.grid(column=x, row=y)  # Метод для розподілу кнопок.
+                window.update()
             k_2.append(k_1)
             but_2.append(but_1)
             two_d_list.append(list_with_number)
@@ -189,7 +207,7 @@ class Game:
             but_1 = []
             k_1 = []
         Button(window, text="start", width=3,
-                height=1, bg="#00aa00", command=lambda: self.__pressing_on_green_button(number, btn)).place(x=20, y=811)  # Створення зеленої копки з парамитрами.
+                height=1, bg="#00aa00", command=lambda: self._pressing_on_green_button(number, btn)).place(x=20, y=811)  # Створення зеленої копки з парамитрами.
         Button(window, text="to cleanse",
                     width=7, height=1, bg="#aa0000", command=lambda: btn.to_cleanse(self)).place(x=300, y=811)  # Створення червоної копки з парамитрами.
         Button(window, text="new image", width=8, height=1, bg="#8d4f00",
@@ -202,11 +220,13 @@ class Game:
                              bg="#833200", fg="#dd8c5a", font=15)
         text_2.place(x=60, y=811)
         menu_1.add_command(label="start", background="#007700",
-                       command=lambda: self.__pressing_on_green_button(number, btn))
+                       command=lambda: self._pressing_on_green_button(number, btn))
+        menu_1.add_command(label='config', background="#8d4f00", command=lambda: config.config(window, event))
         window.mainloop()  # Метод який недає закретись просто так вікну.
+
 
 
 game = Game()
 btn = Object_Button()
-game.start_window()
+game.start()
 game.creation_of_buttons()
