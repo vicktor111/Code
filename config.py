@@ -1,17 +1,20 @@
-from tkinter import Tk, Button, Label, Entry, Widget
+from tkinter import Tk, Button, Label, Entry, Frame, END
+import Life
 
 string = """#863200
-#c8c8c8"""
+#c8c8c8
+#000000"""
 
 
 class Config:
 
     def __init__(self, master, text: str, x, y, num, width=20):
-        list_with_str = string.split("\n")
-        Label(master, text=text).place(x=x, y=y - 2)
-        self._text = Entry(master, width=width)
-        self._text.insert(0, list_with_str[num])
-        self._text.place(y=y, x=len(text) * 5 + 20 + x)
+        frame = Frame(master, width=len(text) + width)
+        Label(frame, text=text).grid(row=0, column=0)
+        self._text = Entry(frame, width=width)
+        self._text.insert(0, Life.open_file()[num])
+        self._text.grid(row=0, column=1)
+        frame.place(x=x, y=y - 2)
 
     def getinfo(self):
         info = self._text.get()
@@ -21,9 +24,15 @@ class Config:
             return "#ffffff"
 
 def save_info(info, funcname):
-    with open("config", "w") as file:
+    with open("config_2", "w") as file:
         file.write(info)
         funcname(info.split("\n"))
+
+def set_info(info, list_with_configs):
+    for i in range(len(info)):
+        list_with_configs[i]._text.delete(0, END)
+        list_with_configs[i]._text.insert(0, info[i])
+
 
 def config(window, function):
     root = Tk()
@@ -32,8 +41,11 @@ def config(window, function):
     Label(root, text="Настройки").pack()
     con_1 = Config(root, "Задній фон", 10, 20, 0, 10)
     con_2 = Config(root, "Колір кнопки", 10, 40, 1, 10)
+    con_3 = Config(root, "Колір кнопки після нажимання", 10, 60, 2, 10)
     btn = Button(root, text="save",
-                 command=lambda: save_info(f"{con_1.getinfo()}\n{con_2.getinfo()}",function))
+                 command=lambda: save_info(f"{con_1.getinfo()}\n{con_2.getinfo()}\n{con_3.getinfo()}", function))
+    btn_2= Button(root, text="1",
+                    command=lambda:set_info(string.split("\n"),[con_1, con_2, con_3]))
     btn.place(x=30, y=90)
-
+    btn_2.place(x=90,y=90)
     root.mainloop()

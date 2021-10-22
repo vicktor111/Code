@@ -9,7 +9,7 @@ number = 1
 num_of_click = 0
 number_of_squares = 0
 
-def open_file(filename="config"):
+def open_file(filename="config_2"):
     with open(filename, "r+") as file:
         return file.read().split("\n")
 
@@ -22,6 +22,8 @@ def event(info):
         for i_2 in range(len(two_d_list[i])):
             if two_d_list[i][i_2] == 0:
                 but_2[i][i_2].config(bg=info[1])
+            elif two_d_list[i][i_2] == 1:
+                but_2[i][i_2].config(bg=info[2])
 
 
 class Object_Button():
@@ -70,13 +72,13 @@ class Object_Button():
             for indexs in range(len(k_2[k_2_indexs])):
                 if k_2[k_2_indexs][indexs] == 1:
                     # Зміна кольору кнопки.
-                    but_2[k_2_indexs][indexs]["bg"] = "#000000"
-                    but_2[k_2_indexs][indexs]["activebackground"] = "#000000"
-                    but_2[k_2_indexs][indexs]["activeforeground"] = info[1]
+                    but_2[k_2_indexs][indexs]["bg"] = info[2]
+                    but_2[k_2_indexs][indexs]["activebackground"] = info[2]
+                    but_2[k_2_indexs][indexs]["activeforeground"] = "#c8c8c8"
                     # Зміна тексту кнопки.
                     but_2[k_2_indexs][indexs]["text"] = "1"
                     # Зміна кольору тексту кнопки.
-                    but_2[k_2_indexs][indexs]["fg"] = info[1]
+                    but_2[k_2_indexs][indexs]["fg"] = "#c8c8c8"
                     two_d_list[k_2_indexs][indexs] = 1
                     number_of_squares += 1  # Збільшення кількості квадратів.
                     text_1["text"] = f"Чорних квадратів: {number_of_squares}"
@@ -85,7 +87,7 @@ class Object_Button():
                     but_2[k_2_indexs][indexs]["activebackground"] = info[1]
                     but_2[k_2_indexs][indexs]["activeforeground"] = "#000000"
                     but_2[k_2_indexs][indexs]["text"] = "0"
-                    but_2[k_2_indexs][indexs]["fg"] = '#000000'
+                    but_2[k_2_indexs][indexs]["fg"] = "#000000"
                     two_d_list[k_2_indexs][indexs] = 0
             number += two_d_list[k_2_indexs]
         if sum(number) == 0:
@@ -98,11 +100,11 @@ class Object_Button():
             global number_of_squares
             number_of_squares += 1  # Збільшення кількості квадратів.
             text_1["text"] = f"Чорних квадратів: {number_of_squares}"
-            button["bg"] = "#000000"  # Зміна кольору кнопки.
-            button["activeforeground"] = info[1]
-            button["activebackground"] = "#000000"
+            button["bg"] = info[2]  # Зміна кольору кнопки.
+            button["activeforeground"] = "#c8c8c8"
+            button["activebackground"] = info[2]
             button["text"] = "1"  # Зміна тексту кнопки.
-            button["fg"] = info[1]  # Зміна кольору тексту кнопки.
+            button["fg"] = "#c8c8c8"  # Зміна кольору тексту кнопки.
             two_d_list[y][x] = 1
         else:
             button["bg"] = info[1]
@@ -199,7 +201,6 @@ class Game:
                 but_1.append(button_1)
                 list_with_number.append(0)
                 button_1.grid(column=x, row=y)  # Метод для розподілу кнопок.
-                window.update()
             k_2.append(k_1)
             but_2.append(but_1)
             two_d_list.append(list_with_number)
