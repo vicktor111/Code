@@ -1,4 +1,4 @@
-from tkinter import Tk, Button, Label, filedialog, Menu, Event
+from tkinter import Entry, Tk, Button, Label, filedialog, Menu, Event, END
 from PIL import Image, ImageDraw
 import config
 
@@ -8,6 +8,7 @@ k_2 = []
 number = 1
 num_of_click = 0
 number_of_squares = 0
+g = 0
 
 def open_file(filename="config_2"):
     with open(filename, "r+") as file:
@@ -27,6 +28,9 @@ def event(info):
 
 
 class Object_Button():
+
+    def __init__(self,state=""):
+        self.state = state
 
     def tt(self):
         for a2_indexs in range(len(two_d_list)):
@@ -57,12 +61,25 @@ class Object_Button():
                 if a2_indexs > 1 and a2_indexs > 1:
                     if two_d_list[a2_indexs - 1][indexs - 1] == 1:
                         num += 1
-                if num == 2:
-                    k_2[a2_indexs][indexs] = 1
-                else:
-                    k_2[a2_indexs][indexs] = 0
+                if self.state == "*":
+                    if two_d_list[a2_indexs][indexs] == 0:
+                        if num == 3:
+                            k_2[a2_indexs][indexs] = 1
+                        else:
+                            k_2[a2_indexs][indexs] = 0
+                    elif two_d_list[a2_indexs][indexs] == 1:
+                        if num == 3 or num == 2:
+                            k_2[a2_indexs][indexs] = 1
+                        else:
+                            k_2[a2_indexs][indexs] = 0
+                elif self.state == "":
+                    if num == 2:
+                        k_2[a2_indexs][indexs] = 1
+                    else:
+                        k_2[a2_indexs][indexs] = 0
 
     def change_color_buttons(self):
+        global g
         info = open_file()
         number = []
         global number_of_squares
@@ -91,8 +108,10 @@ class Object_Button():
                     two_d_list[k_2_indexs][indexs] = 0
             number += two_d_list[k_2_indexs]
         if sum(number) == 0:
+            g=1
             number_of_squares = 0
             text_1["text"] = f"Чорних квадратів: {number_of_squares}"
+        window.update()
 
     def color_change(self, button, x, y):
         info = open_file()
@@ -158,14 +177,38 @@ class Game:
             image.show()
 
     def _pressing_on_green_button(self, num, object: Object_Button):
-        global num_of_click
+
+        def set_property_of_entry(str):
+            second.delete(0, END)
+            second.insert(0, str)
+
+        def set(event):
+            global g
+            g = 1
+
+        global num_of_click, g
         num_of_click += 1
         text_2["text"] = f"Зелену кнопку було нажато: {num_of_click}"
-        if num <= 15 and num > 0:
-            for i in range(1, num + 1):
-                object.change_color_buttons()
+        g=0
+        if second.get() == "":
+            set_property_of_entry(30)
         else:
-            object.change_color_buttons()
+            try:
+                int(second.get())
+            except :
+                set_property_of_entry(30)
+        for i in range(int(second.get())):
+            num_2 = int(second.get())
+            set_property_of_entry(num_2 - 1)
+            window.bind("<Return>", set)
+            if g == 1:
+                set_property_of_entry(0)
+                break
+            if num <= 15 and num > 0:
+                for i in range(1, num + 1):
+                    object.change_color_buttons()
+            else:
+                object.change_color_buttons()
 
     def start(self):
         global window, menu_1
@@ -175,7 +218,7 @@ class Game:
         window.iconbitmap(r"E:\New folder\programs\git\Code\icons80.ico")
         window.config(bg=info[0])
         window.geometry("799x844")  # Розміри вікна.
-        window.resizable(False, False)  # Заборона на зміну розміра вікна.
+        # window.resizable(False, False)  # Заборона на зміну розміра вікна.
         menu_1 = Menu(window, tearoff=0)
         menu_1.add_command(label='очищення', background="#aa0000",
                        command=lambda: btn.to_cleanse(self))
@@ -185,7 +228,7 @@ class Game:
         window.bind("<Button-3>", lambda event: event_1(event, menu_1))
 
     def creation_of_buttons(self):
-        global text_1, text_2
+        global text_1, text_2, second
         info = open_file()
         k_1 = []
         list_with_number = []
@@ -220,6 +263,8 @@ class Game:
         text_2 = Label(window, text=f"Зелену кнопку було нажато: {num_of_click}",
                              bg="#833200", fg="#dd8c5a", font=15)
         text_2.place(x=68, y=811)
+        second = Entry(window, width=5)
+        second.place(x=733, y=811)
         menu_1.add_command(label="старт", background="#007700",
                        command=lambda: self._pressing_on_green_button(number, btn))
         menu_1.add_command(label='настройки', background="#5166af", command=lambda: config.config(window, event))
@@ -227,6 +272,6 @@ class Game:
 
 if __name__ == "__main__":
     game = Game()
-    btn = Object_Button()
+    btn = Object_Button("*")
     game.start()
     game.creation_of_buttons()
