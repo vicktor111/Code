@@ -21,7 +21,7 @@ def clear_of_menu(window):
     menu_1 = Menu(window, tearoff=0)
     menu_1.add_command(label="Зберехти файл", command=lambda: f.save_file(two_d_list, number_of_squares, num_of_click))
     menu.add_cascade(label="Файл", menu=menu_1)
-    menu_1.add_command(label='Вікрите файл', command=lambda:k())
+    menu_1.add_command(label='Вікрите файл', command=lambda: object_btn.k())
     window.config(menu=menu)
 
 def _event_1(event: Event, menu: Menu):
