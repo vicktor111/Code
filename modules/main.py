@@ -200,7 +200,7 @@ def rgb_2(n):
     n=str(n[2:7:2])
     a=[]
     for i in range(3):
-        a+=[new_func1(f[i])+new_func2(n[i])]
+        a+=[new_func1(f[i]) + new_func2(n[i])]
     return a
 
 def Color(color):

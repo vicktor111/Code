@@ -1,1 +1,1 @@
-from .mani import *
+from .main import *
