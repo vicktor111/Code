@@ -1,5 +1,5 @@
 from tkinter import Tk, Button, Label, Entry, Frame, END
-import main
+import f
 
 string = """#863200
 #c8c8c8
@@ -7,12 +7,12 @@ string = """#863200
 
 
 class Config:
-
+    "Config призначений для зміни параметрів віджетів."
     def __init__(self, master, text: str, x, y, num, width=20):
         frame = Frame(master, width=len(text) + width)
         Label(frame, text=text).grid(row=0, column=0)
         self._text = Entry(frame, width=width)
-        self._text.insert(0, main.open_file()[num])
+        self._text.insert(0, f.open_file()[num])
         self._text.grid(row=0, column=1)
         frame.place(x=x, y=y - 2)
 
@@ -23,8 +23,8 @@ class Config:
         else:
             return "#ffffff"
 
-def save_info(info, funcname):
-    with open("config_2", "w") as file:
+def save_info(info, funcname ,string="config_2"):
+    with open(string, "w") as file:
         file.write(info)
         funcname(info.split("\n"))
 
@@ -34,10 +34,12 @@ def set_info(info, list_with_configs):
         list_with_configs[i]._text.insert(0, info[i])
 
 
-def config(window, function):
+def configs(window, function):
+    "Вікно настройків."
     root = Tk()
     root.geometry("300x200")
     root.title("Настройки")
+    root.iconbitmap(r"E:\New folder\programs\git\Code\config ico.ico")
     # root.resizable(False, False)
     Label(root, text="Настройки").pack()
     con_1 = Config(root, "Задній фон", 10, 20, 0, 10)
@@ -50,3 +52,6 @@ def config(window, function):
     btn.place(x=30, y=90)
     btn_2.place(x=110, y=90)
     root.mainloop()
+
+if __name__ == '__main__':
+    configs(Tk(), lambda info: print(info))
